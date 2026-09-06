@@ -4,6 +4,33 @@
 
 ---
 
+## v1.2 — 2026-09-06 — Corrección de formato en el conversor
+
+**Estado**: pendiente de validación por el IAM.
+
+**Motivo**: el texto mostraba marcas de Markdown sin convertir (`**`) en la pestaña de Contenido y en la de Fuentes.
+
+### Alcance
+
+- Se porta a este tema el **arreglo del conversor** que la serie incorporó a partir del Tema 28: la negrita se procesa **antes** que la cursiva y sin ser codiciosa, de modo que `**negrita con *cursiva* dentro**` se convierte bien.
+- Se reescriben dos frases donde la negrita envolvía un fragmento de código con asterisco (`` `jakarta.*` ``, `` `javax.*` ``), que el conversor no podía emparejar.
+- **Sin cambios de contenido**: solo formato. El defecto venía de la primera publicación del tema.
+
+---
+
+## v1.2 — 2026-09-06 — Marcado del apartado complementario
+
+**Estado**: pendiente de validación por el IAM.
+
+**Motivo**: criterio de literalidad del título fijado por el IAM (Jesús Cuadrado, 02-09-2026).
+
+### Alcance
+
+- El apartado final que **el enunciado oficial del tema no nombra** queda marcado como **material complementario**, en el índice y al principio del propio apartado, con la advertencia de que lo exigible es lo que enumera el título.
+- **Sin cambios de contenido**: el apartado se mantiene íntegro.
+
+---
+
 ## v1.1 — 2026-09-06 — Ficha de extensión y tiempo de estudio
 
 **Estado**: sin cambios de contenido. Solo se añade información sobre el propio tema.

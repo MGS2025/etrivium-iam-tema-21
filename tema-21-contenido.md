@@ -24,7 +24,7 @@ Este tema incluye cuatro tipos de **cajas callout** para facilitar el estudio:
 
 > **[REFERENCIA CRUZADA]** Enlace conceptual a otros temas del temario oficial.
 
-Los ejemplos de **código** se escriben en **Java con anotaciones Jakarta EE reales** (`jakarta.*`), no en pseudocódigo neutro, porque este tema trata precisamente de esa plataforma y de sus APIs concretas — pseudocódigo agnóstico perdería el sentido didáctico (decisión de Joan). Se usa el **namespace `jakarta.*`**, vigente desde **Jakarta EE 9** (2020), como convención principal; donde procede se señala el namespace histórico `javax.*` como legado, relevante para leer código de aplicaciones anteriores a 2020 o del propio Java SE. Los fragmentos son deliberadamente breves e ilustrativos, no programas completos. Las fuentes se citan con etiquetas breves tipo `[JAKARTA-EJB]` o `[GONCALVES, cap. 4]`; el registro completo está en `tema-21-fuentes.md`.
+Los ejemplos de **código** se escriben en **Java con anotaciones Jakarta EE reales** (`jakarta.*`), no en pseudocódigo neutro, porque este tema trata precisamente de esa plataforma y de sus APIs concretas — pseudocódigo agnóstico perdería el sentido didáctico (decisión de Joan). Se usa el **namespace** `jakarta.*`, vigente desde **Jakarta EE 9** (2020), como convención principal; donde procede se señala el namespace histórico `javax.*` como legado, relevante para leer código de aplicaciones anteriores a 2020 o del propio Java SE. Los fragmentos son deliberadamente breves e ilustrativos, no programas completos. Las fuentes se citan con etiquetas breves tipo `[JAKARTA-EJB]` o `[GONCALVES, cap. 4]`; el registro completo está en `tema-21-fuentes.md`.
 
 **Caso de referencia usado en todo el tema** (contexto Ayuntamiento de Madrid, simplificado): una aplicación **«Gestión de Expedientes y Tributos»**, con front-end web (JSF y una API REST), una capa de negocio con EJB/CDI que valida y liquida tributos, una capa de persistencia con JPA sobre la base de datos relacional del Tema 19, y una integración asíncrona por JMS que notifica a otros sistemas municipales cuando un expediente cambia de estado.
 
@@ -69,7 +69,7 @@ Sin embargo, Oracle **conservó la marca registrada «Java»**, lo que impidió 
 
 > **[DATO CLAVE EXAMEN]** El renombrado a **Jakarta EE** no fue una decisión técnica ni de marketing, sino la **consecuencia legal directa** de que Oracle retuvo los derechos de marca sobre «Java». Es un dato de examen muy citado y a menudo confundido con un simple «cambio de nombre por modernización».
 
-Esta restricción de marca tuvo una consecuencia **técnica** de mucho mayor calado: Oracle tampoco permitió que las nuevas versiones de las especificaciones siguieran usando el **paquete Java `javax.*`**, reservado igualmente bajo su control. Como resultado, **Jakarta EE 9** (2020) llevó a cabo la llamada **«Gran Renombración»** (*Big Bang Renaming*): todas las APIs de la plataforma cambiaron su **paquete raíz** de `javax.*` a `jakarta.*` (por ejemplo, `javax.servlet.*` → `jakarta.servlet.*`; `javax.persistence.*` → `jakarta.persistence.*`).
+Esta restricción de marca tuvo una consecuencia **técnica** de mucho mayor calado: Oracle tampoco permitió que las nuevas versiones de las especificaciones siguieran usando el **paquete Java** `javax.*`, reservado igualmente bajo su control. Como resultado, **Jakarta EE 9** (2020) llevó a cabo la llamada **«Gran Renombración»** (*Big Bang Renaming*): todas las APIs de la plataforma cambiaron su **paquete raíz** de `javax.*` a `jakarta.*` (por ejemplo, `javax.servlet.*` → `jakarta.servlet.*`; `javax.persistence.*` → `jakarta.persistence.*`).
 
 ```java
 // Antes de Jakarta EE 9 (namespace legado, aún presente en código anterior a 2020)
@@ -678,6 +678,8 @@ Su eslogan («*Supersonic Subatomic Java*») resume su propuesta de valor: tiemp
 ---
 
 ## 4. Tendencias actuales en el desarrollo de aplicaciones empresariales Java
+
+> **Material complementario.** El enunciado oficial de este tema no nombra este apartado. Se mantiene porque esta materia envejece deprisa y conviene conocer su estado actual, pero lo exigible es lo que enumera el título del tema.
 
 La plataforma sigue evolucionando para responder a un contexto de despliegue muy distinto del que existía en 1999, sin que esto reste vigencia a los fundamentos arquitectónicos de este tema [JAKARTA-PLAT; QUARKUS-DOC]:
 

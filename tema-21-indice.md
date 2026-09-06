@@ -46,7 +46,7 @@
    3.4.1. Spring (Core, MVC, Data, Batch, Cloud)
    3.4.2. Quarkus
 
-4. **Tendencias actuales en el desarrollo de aplicaciones empresariales Java**
+4. **Tendencias actuales en el desarrollo de aplicaciones empresariales Java (material complementario)**
 
 ---
 
