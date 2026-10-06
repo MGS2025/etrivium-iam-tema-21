@@ -96,7 +96,7 @@
 **Propósito**: Situar los cinco servicios transversales que el contenedor presta a todas las capas.
 
 ```svg
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 660 360" role="img" aria-label="Cinco servicios transversales que el contenedor presta a todas las capas: seguridad JAAS, servicios de directorio JNDI, gestión de dependencias con Maven o Gradle, empaquetado y ciclo de vida, y servidores de aplicaciones">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 660 370" role="img" aria-label="Cinco servicios transversales que el contenedor presta a todas las capas: seguridad JAAS, servicios de directorio JNDI, gestión de dependencias con Maven o Gradle, empaquetado y ciclo de vida, y servidores de aplicaciones">
   <style>.t3{font:700 11px system-ui,sans-serif;fill:#fff}.s3{font:9.5px system-ui,sans-serif;fill:#fff}.l3{font:11px system-ui,sans-serif;fill:#444}.h3{font:700 13px system-ui,sans-serif;fill:#0055a0}</style>
   <text x="330" y="22" text-anchor="middle" class="h3">Servicios transversales — comunes a todas las capas</text>
   <circle cx="330" cy="190" r="58" fill="#0055a0"/>
@@ -113,7 +113,7 @@
   <line x1="200" y1="283" x2="278" y2="216" stroke="#888" stroke-width="2"/>
   <line x1="460" y1="283" x2="382" y2="216" stroke="#888" stroke-width="2"/>
   <line x1="330" y1="248" x2="330" y2="300" stroke="#888" stroke-width="2"/>
-  <text x="650" y="356" text-anchor="end" style="font:11px system-ui;fill:#666">[Fuente: JAKARTA-PLAT; GONCALVES, cap. 3]</text>
+  <text x="650" y="364" text-anchor="end" style="font:11px system-ui;fill:#666">[Fuente: JAKARTA-PLAT; GONCALVES, cap. 3]</text>
 </svg>
 ```
 
@@ -215,8 +215,8 @@
   <rect x="30" y="42" width="140" height="50" rx="6" fill="#0055a0"/><text x="100" y="62" text-anchor="middle" class="t7">Petición HTTP</text><text x="100" y="78" text-anchor="middle" class="s7">del navegador</text>
   <path d="M170 67 L198 67" stroke="#888" stroke-width="2" marker-end="url(#a7)"/>
   <rect x="200" y="42" width="150" height="50" rx="6" fill="#3778b5"/><text x="275" y="62" text-anchor="middle" class="t7">Contenedor web</text><text x="275" y="78" text-anchor="middle" class="s7">una instancia por servlet</text>
-  <path d="M275 92 C 210 120 210 140 245 156" stroke="#2d8659" stroke-width="2" fill="none" marker-end="url(#a7)"/>
-  <path d="M275 92 C 340 120 340 140 305 156" stroke="#e89822" stroke-width="2" fill="none" marker-end="url(#a7)"/>
+  <path d="M260 92 C 240 120 220 130 212 150" stroke="#2d8659" stroke-width="2" fill="none" marker-end="url(#a7)"/>
+  <path d="M290 92 C 330 120 410 130 432 150" stroke="#e89822" stroke-width="2" fill="none" marker-end="url(#a7)"/>
   <rect x="120" y="158" width="180" height="50" rx="6" fill="#2d8659"/><text x="210" y="178" text-anchor="middle" class="t7">Servlet directo</text><text x="210" y="194" text-anchor="middle" class="s7">doGet() / doPost()</text>
   <rect x="330" y="158" width="220" height="50" rx="6" fill="#e89822"/><text x="440" y="178" text-anchor="middle" class="t7">FacesServlet (JSF)</text><text x="440" y="194" text-anchor="middle" class="s7">ciclo de 6 fases → managed bean CDI</text>
   <rect x="140" y="230" width="440" height="56" rx="6" fill="#eef4fa" stroke="#0055a0"/>
@@ -348,7 +348,7 @@
 **Propósito**: Situar JUnit/Mockito, JMeter y APM en sus fases del ciclo de vida (desarrollo/preproducción/producción).
 
 ```svg
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 360" role="img" aria-label="Pirámide de pruebas: base ancha de pruebas unitarias con JUnit y Mockito, nivel intermedio de pruebas de carga con JMeter antes del despliegue, y vigilancia continua en producción con herramientas APM">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 372" role="img" aria-label="Pirámide de pruebas: base ancha de pruebas unitarias con JUnit y Mockito, nivel intermedio de pruebas de carga con JMeter antes del despliegue, y vigilancia continua en producción con herramientas APM">
   <style>.t12{font:700 11px system-ui,sans-serif;fill:#fff}.s12{font:9.5px system-ui,sans-serif;fill:#fff}.l12{font:11px system-ui,sans-serif;fill:#444}.h12{font:700 13px system-ui,sans-serif;fill:#0055a0}</style>
   <text x="320" y="20" text-anchor="middle" class="h12">De la pirámide de pruebas a la observabilidad en producción</text>
   <polygon points="320,40 420,110 220,110" fill="#d13c3c"/>
@@ -365,7 +365,7 @@
   <rect x="60" y="296" width="520" height="52" rx="6" fill="#eef4fa" stroke="#0055a0"/>
   <text x="320" y="318" text-anchor="middle" style="font:700 11.5px system-ui;fill:#0055a0">JUnit organiza y ejecuta · Mockito aísla dependencias · JMeter carga · APM observa</text>
   <text x="320" y="336" text-anchor="middle" class="l12">APM monitoriza en continuo; las pruebas de carga son puntuales, antes de desplegar</text>
-  <text x="630" y="356" text-anchor="end" style="font:11px system-ui;fill:#666">[Fuente: JUNIT5-DOC; MOCKITO-DOC; JMETER-DOC]</text>
+  <text x="630" y="366" text-anchor="end" style="font:11px system-ui;fill:#666">[Fuente: JUNIT5-DOC; MOCKITO-DOC; JMETER-DOC]</text>
 </svg>
 ```
 
