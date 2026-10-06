@@ -55,10 +55,11 @@
 
 | ID | Referencia |
 |---|---|
-| `[ISO25010]` | ISO/IEC 25010:2011 *Systems and software Quality Requirements and Evaluation (SQuaRE)* — mantenibilidad, portabilidad y eficiencia de desempeño, aplicables a la elección de arquitectura de capas y a la compilación nativa. |
+| `[ISO25010]` | ISO/IEC 25010:2023 *Systems and software Quality Requirements and Evaluation (SQuaRE) — Product quality model*. Anula y sustituye a la ISO/IEC 25010:2011: es la edición vigente del modelo de calidad del producto — mantenibilidad, flexibilidad (la antigua «portabilidad») y eficiencia de desempeño, aplicables a la elección de arquitectura de capas y a la compilación nativa. |
+| `[ISO25010-2011]` | ISO/IEC 25010:2011 *Systems and software Quality Requirements and Evaluation (SQuaRE) — System and software quality models*. Anulada y sustituida por la ISO/IEC 25010:2023. Se conserva la referencia porque es la que recogen los temarios al uso. |
 | `[ENS]` | Real Decreto 311/2022, Esquema Nacional de Seguridad — requisitos de autenticación, trazabilidad y cifrado en transporte, relevantes para la capa de seguridad de una aplicación Java EE municipal. |
 | `[BOAM10032]` | BOAM 10.032 (23-dic-2025). Bases específicas TIC C1 Ayto. Madrid — temario oficial. |
 
 ---
 
-*Las referencias Tier 1 fijan el fundamento normativo (especificaciones Jakarta EE, herederas de las de Java EE/J2EE bajo JCP-Oracle) y las obras canónicas de arquitectura empresarial, y son la base de todo el contenido; Tier 2 documenta las implementaciones y herramientas concretas citadas como ejemplo (Spring, Quarkus, GraalVM, Maven/Gradle, JUnit/Mockito, JMeter, GlassFish/WildFly) sin que el tema dependa de ninguna en particular; Tier 3 enmarca la calidad y la seguridad aplicables en el Ayuntamiento de Madrid. Los ejemplos de código usan el **namespace `jakarta.*`** vigente desde Jakarta EE 9 (decisión de Joan), señalando el namespace histórico `javax.*` como legado allí donde es relevante para el examen.*
+*Las referencias Tier 1 fijan el fundamento normativo (especificaciones Jakarta EE, herederas de las de Java EE/J2EE bajo JCP-Oracle) y las obras canónicas de arquitectura empresarial, y son la base de todo el contenido; Tier 2 documenta las implementaciones y herramientas concretas citadas como ejemplo (Spring, Quarkus, GraalVM, Maven/Gradle, JUnit/Mockito, JMeter, GlassFish/WildFly) sin que el tema dependa de ninguna en particular; Tier 3 enmarca la calidad y la seguridad aplicables en el Ayuntamiento de Madrid. Los ejemplos de código usan el **namespace `jakarta.*`** vigente desde Jakarta EE 9, señalando el namespace histórico `javax.*` como legado allí donde es relevante.*

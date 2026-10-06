@@ -79,7 +79,7 @@ C) Elimina el contenedor de servlets
 
 <details><summary>Respuesta</summary>
 
-**Correcta: A) Sustituye buena parte de la configuración XML por anotaciones, simplificando el modelo de programación** Es uno de los tres hitos de examen más citados de la evolución de la plataforma.
+**Correcta: A) Sustituye buena parte de la configuración XML por anotaciones, simplificando el modelo de programación** Es uno de los tres hitos de la evolución de la plataforma.
 
 *Referencia: §1.2 [GONCALVES, cap. 1]*
 </details>
@@ -334,7 +334,7 @@ C) Un EJB-JAR y un EAR son formatos incompatibles entre sí
 
 <details><summary>Respuesta</summary>
 
-**Correcta: A) Un EAR puede contener varios WAR y EJB-JAR; un WAR no puede contener un EAR** Es la jerarquía de empaquetado de examen más preguntada de este epígrafe.
+**Correcta: A) Un EAR puede contener varios WAR y EJB-JAR; un WAR no puede contener un EAR** Es la jerarquía de empaquetado de la plataforma.
 
 *Referencia: §2.1.4 [JAKARTA-PLAT]*
 </details>
@@ -640,7 +640,7 @@ C) Se fusionaron con los Message-Driven Beans
 
 <details><summary>Respuesta</summary>
 
-**Correcta: A) Fueron sustituidas por completo por JPA desde Java EE 5 (2006), por su complejidad y rendimiento deficiente** Mencionarlas como forma actual de persistencia es un error de examen frecuente.
+**Correcta: A) Fueron sustituidas por completo por JPA desde Java EE 5 (2006), por su complejidad y rendimiento deficiente** Mencionarlas como forma actual de persistencia es un error frecuente.
 
 *Referencia: §2.4.1 [JAKARTA-EJB]*
 </details>
@@ -878,7 +878,7 @@ C) Sobre el modelo de entidades y sus atributos Java, no directamente sobre tabl
 
 <details><summary>Respuesta</summary>
 
-**Correcta: C) Sobre el modelo de entidades y sus atributos Java, no directamente sobre tablas y columnas físicas** Es la distinción de examen más preguntada de este epígrafe; el proveedor JPA lo traduce internamente a SQL.
+**Correcta: C) Sobre el modelo de entidades y sus atributos Java, no directamente sobre tablas y columnas físicas** El proveedor JPA lo traduce internamente a SQL.
 
 *Referencia: §2.5.4 [JAKARTA-JPA]*
 </details>

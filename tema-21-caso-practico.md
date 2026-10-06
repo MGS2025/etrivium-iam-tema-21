@@ -219,4 +219,4 @@ public Distrito buscarDistrito(int idDistrito) {
 
 ---
 
-*Los tres casos son orientativos y pensados para la autoevaluación; las soluciones muestran una vía correcta, no la única posible. Todos los ejemplos usan anotaciones Jakarta EE reales (namespace `jakarta.*`), coherentes con la decisión de Joan de no usar pseudocódigo neutro en este tema.*
+*Los tres casos son orientativos y pensados para la autoevaluación; las soluciones muestran una vía correcta, no la única posible. Todos los ejemplos usan anotaciones Jakarta EE reales (namespace `jakarta.*`), sin pseudocódigo neutro.*

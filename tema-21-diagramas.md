@@ -301,7 +301,7 @@
   <rect x="340" y="112" width="320" height="60" rx="6" fill="#888"/><text x="500" y="134" text-anchor="middle" class="t10">@Dependent (por defecto)</text><text x="500" y="152" text-anchor="middle" class="s10">hereda el ciclo de vida del bean que lo inyecta</text>
   <rect x="60" y="192" width="560" height="70" rx="6" fill="#eef4fa" stroke="#0055a0"/>
   <text x="340" y="214" text-anchor="middle" style="font:700 12px system-ui;fill:#0055a0">@Inject resuelve por TIPO (con qualifiers si hay ambigüedad)</text>
-  <text x="340" y="234" text-anchor="middle" class="l10">JNDI (§2.1.2), en cambio, resuelve por NOMBRE — distinción clave de examen</text>
+  <text x="340" y="234" text-anchor="middle" class="l10">JNDI (§2.1.2), en cambio, resuelve por NOMBRE — distinción clave</text>
   <rect x="60" y="272" width="560" height="52" rx="6" fill="#fdf3e3" stroke="#e89822"/>
   <text x="340" y="294" text-anchor="middle" style="font:700 11.5px system-ui;fill:#8a5a00">@ApplicationScoped ≈ patrón Singleton (Tema 20) gestionado por el contenedor</text>
   <text x="340" y="312" text-anchor="middle" class="l10">@Observes (eventos) aplica el patrón Observer de forma declarativa</text>

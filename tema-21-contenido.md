@@ -16,15 +16,15 @@
 
 Este tema incluye cuatro tipos de **cajas callout** para facilitar el estudio:
 
-> **[DATO CLAVE EXAMEN]** Información de alta densidad memorística, con alta probabilidad de aparecer en el test oficial.
+> **[DATO CLAVE]** Información de alta densidad memorística.
 
 > **[EJERCICIO RESUELTO]** Problema + solución paso a paso (diseño de un componente, elección arquitectónica razonada).
 
-> **[EJEMPLO AYTO MADRID]** Aplicación real de la teoría al entorno municipal (Padrón, tributos, expedientes, licencias).
+> **[EJEMPLO DE APLICACIÓN EN EL AYTO]** Aplicación real de la teoría al entorno municipal (Padrón, tributos, expedientes, licencias).
 
-> **[REFERENCIA CRUZADA]** Enlace conceptual a otros temas del temario oficial.
+> **[RELACIÓN CON OTROS TEMAS]** Enlace conceptual a otros temas del temario oficial.
 
-Los ejemplos de **código** se escriben en **Java con anotaciones Jakarta EE reales** (`jakarta.*`), no en pseudocódigo neutro, porque este tema trata precisamente de esa plataforma y de sus APIs concretas — pseudocódigo agnóstico perdería el sentido didáctico (decisión de Joan). Se usa el **namespace** `jakarta.*`, vigente desde **Jakarta EE 9** (2020), como convención principal; donde procede se señala el namespace histórico `javax.*` como legado, relevante para leer código de aplicaciones anteriores a 2020 o del propio Java SE. Los fragmentos son deliberadamente breves e ilustrativos, no programas completos. Las fuentes se citan con etiquetas breves tipo `[JAKARTA-EJB]` o `[GONCALVES, cap. 4]`; el registro completo está en `tema-21-fuentes.md`.
+Los ejemplos de **código** se escriben en **Java con anotaciones Jakarta EE reales** (`jakarta.*`), no en pseudocódigo neutro, porque este tema trata precisamente de esa plataforma y de sus APIs concretas — pseudocódigo agnóstico perdería el sentido didáctico. Se usa el **namespace** `jakarta.*`, vigente desde **Jakarta EE 9** (2020), como convención principal; donde procede se señala el namespace histórico `javax.*` como legado, relevante para leer código de aplicaciones anteriores a 2020 o del propio Java SE. Los fragmentos son deliberadamente breves e ilustrativos, no programas completos. Las fuentes se citan con etiquetas breves tipo `[JAKARTA-EJB]` o `[GONCALVES, cap. 4]`; el registro completo está en `tema-21-fuentes.md`.
 
 **Caso de referencia usado en todo el tema** (contexto Ayuntamiento de Madrid, simplificado): una aplicación **«Gestión de Expedientes y Tributos»**, con front-end web (JSF y una API REST), una capa de negocio con EJB/CDI que valida y liquida tributos, una capa de persistencia con JPA sobre la base de datos relacional del Tema 19, y una integración asíncrona por JMS que notifica a otros sistemas municipales cuando un expediente cambia de estado.
 
@@ -41,11 +41,11 @@ Los ejemplos de **código** se escriben en **Java con anotaciones Jakarta EE rea
 
 Este reparto de responsabilidades es una aplicación del principio de **inversión de control** (*IoC*): en Java SE «a pelo», el programador escribe el `main()` y controla todo el ciclo de vida de sus objetos; en Java EE, es el **contenedor** quien crea los objetos, invoca sus métodos en el momento oportuno y les inyecta lo que necesitan — el desarrollador se limita a describir **qué** necesita el componente (mediante anotaciones o descriptores XML), no **cómo** obtenerlo.
 
-> **[DATO CLAVE EXAMEN]** La diferencia esencial entre Java SE y Java EE no es «más librerías», sino un **modelo de programación distinto**: el contenedor invierte el control (*Hollywood principle*: «no nos llames, ya te llamaremos nosotros») y presta **servicios transversales declarativos** (seguridad, transacciones, concurrencia) que en Java SE habría que programar a mano [JAKARTA-PLAT].
+> **[DATO CLAVE]** La diferencia esencial entre Java SE y Java EE no es «más librerías», sino un **modelo de programación distinto**: el contenedor invierte el control (*Hollywood principle*: «no nos llames, ya te llamaremos nosotros») y presta **servicios transversales declarativos** (seguridad, transacciones, concurrencia) que en Java SE habría que programar a mano [JAKARTA-PLAT].
 
 Java EE/Jakarta EE se define, además, como una **plataforma de especificaciones**, no un producto: cada API (Servlets, EJB, CDI, JPA…) tiene una especificación formal, y los fabricantes de servidores (Oracle, Red Hat, Eclipse Foundation, IBM…) construyen **implementaciones** que deben pasar un **Technology Compatibility Kit** (TCK) para poder llamarse «compatibles con Jakarta EE». Esta separación especificación/implementación es la que permite, en teoría, **portar** una aplicación de un servidor a otro con cambios mínimos.
 
-> **[REFERENCIA CRUZADA]** El **Tema 20** (diseño y programación orientada a objetos) es el fundamento directo de este tema: los componentes de Java EE (EJB, CDI beans, entidades JPA) son **clases Java** anotadas, y el contenedor aplica sobre ellas patrones de diseño estudiados en el Tema 20 (Factory, Proxy, Singleton, Observer) de forma transparente al desarrollador.
+> **[RELACIÓN CON OTROS TEMAS]** El **Tema 20** (diseño y programación orientada a objetos) es el fundamento directo de este tema: los componentes de Java EE (EJB, CDI beans, entidades JPA) son **clases Java** anotadas, y el contenedor aplica sobre ellas patrones de diseño estudiados en el Tema 20 (Factory, Proxy, Singleton, Observer) de forma transparente al desarrollador.
 
 ### 1.2. Evolución y contexto tecnológico
 
@@ -57,7 +57,7 @@ La plataforma nace en **1999** como **J2EE 1.2** (*Java 2 Platform, Enterprise E
 | **Java EE** | 2006-2017 (5 → 8) | Giro hacia la **simplicidad**: Java EE 5 (2006) introduce **anotaciones** que sustituyen buena parte del XML; Java EE 6 (2009) introduce **CDI** y los **perfiles** (*Web Profile*); Java EE 7 (2013) añade **WebSocket**, **JSON-P**, **Batch**; Java EE 8 (2017) añade **JSON-B** y **Jakarta Security** (JSR 375). |
 | **Jakarta EE** | 2018-presente | Oracle transfiere la plataforma a la **Eclipse Foundation** (§1.3); continúa la evolución con **Jakarta EE 9/9.1** (cambio de namespace), **10** (perfil *Core*, alineación con Java SE 11+) y **11** (alineación con Java SE 21, mayor integración con arquitecturas cloud-native). |
 
-> **[DATO CLAVE EXAMEN]** Tres hitos de examen: **1999**, nacimiento como **J2EE**; **2006** (Java EE 5), giro a **anotaciones** frente a XML, que simplifica radicalmente el modelo de programación; **2017-2019**, transferencia de Oracle a la **Eclipse Foundation** y renombrado a **Jakarta EE** [GONCALVES, cap. 1].
+> **[DATO CLAVE]** Tres hitos: **1999**, nacimiento como **J2EE**; **2006** (Java EE 5), giro a **anotaciones** frente a XML, que simplifica radicalmente el modelo de programación; **2017-2019**, transferencia de Oracle a la **Eclipse Foundation** y renombrado a **Jakarta EE** [GONCALVES, cap. 1].
 
 El **contexto tecnológico** que rodea a la plataforma también ha cambiado sustancialmente desde 1999: de aplicaciones monolíticas desplegadas en un único servidor de aplicaciones «pesado», el desarrollo empresarial Java ha evolucionado hacia **microservicios**, contenedores (Docker/Kubernetes) y **arranque rápido en la nube**, un contexto en el que perfiles ligeros de la propia plataforma y frameworks como **Quarkus** o **Spring Boot** (§2.1.5, §3.4) compiten y se complementan con los servidores de aplicaciones tradicionales.
 
@@ -67,7 +67,7 @@ En **2017**, Oracle anunció su intención de transferir la gobernanza de Java E
 
 Sin embargo, Oracle **conservó la marca registrada «Java»**, lo que impidió a la Eclipse Foundation seguir usando el nombre «Java EE» sin autorización. Tras una consulta pública a la comunidad, el proyecto se renombró **Jakarta EE** (por «Eclipse Jakarta», el código en clave interno del proyecto) [JAKARTA-PLAT].
 
-> **[DATO CLAVE EXAMEN]** El renombrado a **Jakarta EE** no fue una decisión técnica ni de marketing, sino la **consecuencia legal directa** de que Oracle retuvo los derechos de marca sobre «Java». Es un dato de examen muy citado y a menudo confundido con un simple «cambio de nombre por modernización».
+> **[DATO CLAVE]** El renombrado a **Jakarta EE** no fue una decisión técnica ni de marketing, sino la **consecuencia legal directa** de que Oracle retuvo los derechos de marca sobre «Java». Es un dato a menudo confundido con un simple «cambio de nombre por modernización».
 
 Esta restricción de marca tuvo una consecuencia **técnica** de mucho mayor calado: Oracle tampoco permitió que las nuevas versiones de las especificaciones siguieran usando el **paquete Java** `javax.*`, reservado igualmente bajo su control. Como resultado, **Jakarta EE 9** (2020) llevó a cabo la llamada **«Gran Renombración»** (*Big Bang Renaming*): todas las APIs de la plataforma cambiaron su **paquete raíz** de `javax.*` a `jakarta.*` (por ejemplo, `javax.servlet.*` → `jakarta.servlet.*`; `javax.persistence.*` → `jakarta.persistence.*`).
 
@@ -81,13 +81,13 @@ import jakarta.persistence.Entity;
 import jakarta.ejb.Stateless;
 ```
 
-> **[DATO CLAVE EXAMEN]** El cambio `javax.*` → `jakarta.*` en **Jakarta EE 9** es una **ruptura binaria** (*breaking change*), no un simple cambio cosmético: el código compilado contra `javax.*` no es compatible en tiempo de ejecución con contenedores que solo soportan `jakarta.*`, y las aplicaciones existentes requirieron una migración explícita (aunque las APIs, semánticamente, se mantuvieron casi idénticas en esa transición).
+> **[DATO CLAVE]** El cambio `javax.*` → `jakarta.*` en **Jakarta EE 9** es una **ruptura binaria** (*breaking change*), no un simple cambio cosmético: el código compilado contra `javax.*` no es compatible en tiempo de ejecución con contenedores que solo soportan `jakarta.*`, y las aplicaciones existentes requirieron una migración explícita (aunque las APIs, semánticamente, se mantuvieron casi idénticas en esa transición).
 
 La **gobernanza** actual de Jakarta EE se organiza mediante el **Jakarta EE Working Group** dentro de la Eclipse Foundation, con un proceso de especificación abierto (**Jakarta EE Specification Process**, JESP) que sustituye al antiguo JCP para esta plataforma: cualquiera puede proponer y discutir cambios en un repositorio público, frente al proceso más cerrado y orientado a grandes fabricantes del JCP tradicional (que sigue vigente para Java SE).
 
-> **[EJEMPLO AYTO MADRID]** Si el Ayuntamiento mantiene una aplicación de gestión de expedientes desarrollada sobre Java EE 7/8 (`javax.*`) y decide modernizar su plataforma de despliegue a un servidor compatible solo con Jakarta EE 10/11, no basta con actualizar el servidor: hay que **recompilar** la aplicación migrando todos los `import javax.*` a `jakarta.*` (existen herramientas automáticas de migración de bytecode, como el *Eclipse Transformer*, precisamente para este escenario).
+> **[EJEMPLO DE APLICACIÓN EN EL AYTO]** Si el Ayuntamiento mantiene una aplicación de gestión de expedientes desarrollada sobre Java EE 7/8 (`javax.*`) y decide modernizar su plataforma de despliegue a un servidor compatible solo con Jakarta EE 10/11, no basta con actualizar el servidor: hay que **recompilar** la aplicación migrando todos los `import javax.*` a `jakarta.*` (existen herramientas automáticas de migración de bytecode, como el *Eclipse Transformer*, precisamente para este escenario).
 
-> **[REFERENCIA CRUZADA]** La distinción entre **especificación** (el JSR o la especificación Eclipse) e **implementación** (el servidor de aplicaciones concreto) es la misma idea que separa un **estándar** de sus **implementaciones** en el Tema 19 (ISO/IEC 9075 frente a PL/SQL, T-SQL…): un contrato normativo común, y varios productos que lo implementan con matices.
+> **[RELACIÓN CON OTROS TEMAS]** La distinción entre **especificación** (el JSR o la especificación Eclipse) e **implementación** (el servidor de aplicaciones concreto) es la misma idea que separa un **estándar** de sus **implementaciones** en el Tema 19 (ISO/IEC 9075 frente a PL/SQL, T-SQL…): un contrato normativo común, y varios productos que lo implementan con matices.
 
 ---
 
@@ -128,11 +128,11 @@ public class ExpedienteResource {
 }
 ```
 
-> **[DATO CLAVE EXAMEN]** Regla mnemotécnica: **autenticación es «quién», autorización es «qué puedes hacer»**. En Java EE la autorización se expresa casi siempre de forma **declarativa** con la anotación `@RolesAllowed` (o su equivalente XML en el descriptor de despliegue), no comprobando roles «a mano» dentro del método de negocio — es el contenedor quien intercepta la llamada y verifica el rol **antes** de ejecutar el código [JAKARTA-SEC].
+> **[DATO CLAVE]** Regla mnemotécnica: **autenticación es «quién», autorización es «qué puedes hacer»**. En Java EE la autorización se expresa casi siempre de forma **declarativa** con la anotación `@RolesAllowed` (o su equivalente XML en el descriptor de despliegue), no comprobando roles «a mano» dentro del método de negocio — es el contenedor quien intercepta la llamada y verifica el rol **antes** de ejecutar el código [JAKARTA-SEC].
 
-> **[EJEMPLO AYTO MADRID]** El perfil «gestor tributario» (§1 del Tema 19, en el contexto DCL) se traduce, en la capa de aplicación, en un **rol** Jakarta Security: solo los usuarios autenticados con ese rol pueden invocar el *endpoint* REST que liquida un tributo; un ciudadano autenticado en la sede electrónica, sin ese rol, solo puede consultar sus propios expedientes.
+> **[EJEMPLO DE APLICACIÓN EN EL AYTO]** El perfil «gestor tributario» (§1 del Tema 19, en el contexto DCL) se traduce, en la capa de aplicación, en un **rol** Jakarta Security: solo los usuarios autenticados con ese rol pueden invocar el *endpoint* REST que liquida un tributo; un ciudadano autenticado en la sede electrónica, sin ese rol, solo puede consultar sus propios expedientes.
 
-> **[REFERENCIA CRUZADA]** El **Tema 39** (Esquema Nacional de Seguridad) exige mecanismos de autenticación proporcionados al nivel de seguridad del sistema y trazabilidad de accesos; los mecanismos declarativos de Jakarta Security son la forma en que esa exigencia normativa se materializa a nivel de aplicación [ENS].
+> **[RELACIÓN CON OTROS TEMAS]** El **Tema 39** (Esquema Nacional de Seguridad) exige mecanismos de autenticación proporcionados al nivel de seguridad del sistema y trazabilidad de accesos; los mecanismos declarativos de Jakarta Security son la forma en que esa exigencia normativa se materializa a nivel de aplicación [ENS].
 
 #### 2.1.2. Servicios de directorio (JNDI)
 
@@ -146,9 +146,9 @@ DataSource ds = (DataSource) ctx.lookup("jdbc/ExpedientesDS");
 
 En la práctica moderna, la mayoría del código de aplicación **no invoca JNDI explícitamente**: la **inyección de dependencias** de CDI (§2.4.2) y anotaciones como `@Resource` realizan la búsqueda JNDI **por debajo**, de forma transparente. Aun así, entender JNDI es imprescindible porque es el mecanismo que la **configuración del servidor de aplicaciones** usa para exponer esos recursos, y sigue siendo visible en la consola de administración de cualquier servidor Jakarta EE.
 
-> **[DATO CLAVE EXAMEN]** JNDI es la pieza que permite que el **nombre lógico** de un recurso (`jdbc/ExpedientesDS`) usado dentro del código de la aplicación sea independiente de su **configuración física** (servidor, puerto, credenciales de la base de datos), que se define una sola vez en el servidor de aplicaciones. Cambiar de entorno (desarrollo → producción) no exige recompilar la aplicación, solo reconfigurar el recurso JNDI en el servidor.
+> **[DATO CLAVE]** JNDI es la pieza que permite que el **nombre lógico** de un recurso (`jdbc/ExpedientesDS`) usado dentro del código de la aplicación sea independiente de su **configuración física** (servidor, puerto, credenciales de la base de datos), que se define una sola vez en el servidor de aplicaciones. Cambiar de entorno (desarrollo → producción) no exige recompilar la aplicación, solo reconfigurar el recurso JNDI en el servidor.
 
-> **[REFERENCIA CRUZADA]** El nombre lógico JNDI de un `DataSource` es exactamente el recurso al que se conecta **JDBC** (§2.5.2); JNDI es el **localizador**, JDBC es el **protocolo de acceso** a la base de datos una vez obtenida la conexión.
+> **[RELACIÓN CON OTROS TEMAS]** El nombre lógico JNDI de un `DataSource` es exactamente el recurso al que se conecta **JDBC** (§2.5.2); JNDI es el **localizador**, JDBC es el **protocolo de acceso** a la base de datos una vez obtenida la conexión.
 
 #### 2.1.3. Construcción: Maven, Gradle. Gestión de dependencias
 
@@ -176,7 +176,7 @@ Una aplicación Java EE real depende de decenas de bibliotecas (la propia API de
 
 La **gestión de dependencias** en ambas herramientas resuelve automáticamente el **árbol transitivo**: si la biblioteca A depende de B, y B de C, declarar A basta para que B y C se descarguen también, con reglas para resolver **conflictos de versión** (*dependency mediation*) cuando dos ramas del árbol piden versiones distintas de la misma biblioteca.
 
-> **[DATO CLAVE EXAMEN]** El `scope provided` (Maven) o su equivalente `compileOnly` (Gradle) es clave para las dependencias de la propia API Jakarta EE: la API se necesita para **compilar**, pero **no** se empaqueta dentro del artefacto final, porque el **servidor de aplicaciones ya la proporciona** en tiempo de ejecución (§2.1.6). Empaquetarla también causaría conflictos de clases duplicadas.
+> **[DATO CLAVE]** El `scope provided` (Maven) o su equivalente `compileOnly` (Gradle) es clave para las dependencias de la propia API Jakarta EE: la API se necesita para **compilar**, pero **no** se empaqueta dentro del artefacto final, porque el **servidor de aplicaciones ya la proporciona** en tiempo de ejecución (§2.1.6). Empaquetarla también causaría conflictos de clases duplicadas.
 
 #### 2.1.4. Empaquetado y ciclo de vida de las aplicaciones
 
@@ -191,9 +191,9 @@ Una aplicación Java EE se empaqueta en **archivos comprimidos estandarizados** 
 
 El **ciclo de vida de despliegue** (*deployment*) atraviesa fases comunes con independencia del servidor concreto: el artefacto se **copia o publica** en el servidor; el servidor lo **despliega** (*deploy*), lo que implica desempaquetarlo, cargar sus clases en un **classloader** aislado (para que dos aplicaciones no colisionen entre sí aunque usen versiones distintas de una misma biblioteca), inicializar sus componentes gestionados y registrar sus recursos (*endpoints* web, colas JMS, EJB); la aplicación queda **en ejecución** (*running*) hasta que se **detiene** (*stop*) o se **retira** (*undeploy*).
 
-> **[DATO CLAVE EXAMEN]** Jerarquía de empaquetado: un **EAR** puede contener varios **WAR** y **EJB-JAR**; un WAR o un EJB-JAR **no** puede contener otro EAR dentro. Cada WAR desplegado dentro de un EAR obtiene su propio *classloader* hijo, lo que permite aislar dependencias entre módulos de la misma aplicación empresarial.
+> **[DATO CLAVE]** Jerarquía de empaquetado: un **EAR** puede contener varios **WAR** y **EJB-JAR**; un WAR o un EJB-JAR **no** puede contener otro EAR dentro. Cada WAR desplegado dentro de un EAR obtiene su propio *classloader* hijo, lo que permite aislar dependencias entre módulos de la misma aplicación empresarial.
 
-> **[EJEMPLO AYTO MADRID]** La aplicación «Gestión de Expedientes y Tributos» podría empaquetarse como un **EAR** que agrupa un **WAR** (JSF + REST, capa de presentación) y un **EJB-JAR** (la lógica de liquidación de tributos, capa de negocio), de forma que ambos módulos comparten el mismo classloader de aplicación y pueden invocarse entre sí como componentes locales, sin pasar por la red.
+> **[EJEMPLO DE APLICACIÓN EN EL AYTO]** La aplicación «Gestión de Expedientes y Tributos» podría empaquetarse como un **EAR** que agrupa un **WAR** (JSF + REST, capa de presentación) y un **EJB-JAR** (la lógica de liquidación de tributos, capa de negocio), de forma que ambos módulos comparten el mismo classloader de aplicación y pueden invocarse entre sí como componentes locales, sin pasar por la red.
 
 #### 2.1.5. Compilación a nativo: GraalVM, Spring Boot y Quarkus
 
@@ -215,9 +215,9 @@ Dos frameworks del ecosistema Java han hecho de la compilación nativa un **obje
 - **Quarkus** [QUARKUS-DOC], impulsado por Red Hat y construido explícitamente sobre estándares Jakarta EE/MicroProfile, mueve al **momento de construcción** (*build time*) todo el trabajo de metadatos y configuración que tradicionalmente se resolvía en tiempo de arranque (escaneo de anotaciones, generación de *proxies* de inyección de dependencias), de modo que tanto en modo JVM como compilado a nativo con GraalVM el arranque es órdenes de magnitud más rápido que un servidor Jakarta EE tradicional.
 - **Spring Boot**, sobre **Spring Framework** (§3.4.1), añade también soporte de compilación con GraalVM Native Image desde su versión 3, mediante metadatos de compilación generados en tiempo de construcción y un modelo de *Ahead-of-Time processing* propio, con el mismo objetivo de arranque rápido y baja huella de memoria.
 
-> **[DATO CLAVE EXAMEN]** GraalVM Native Image no es un framework, es una **tecnología de compilación**; Quarkus y Spring Boot son **frameworks** que la **aprovechan** (entre otras estrategias de arranque rápido) para ofrecer aplicaciones nativas. No confundir «compilar a nativo» con «usar Quarkus»: Quarkus también puede ejecutarse en modo JVM tradicional sin compilación nativa.
+> **[DATO CLAVE]** GraalVM Native Image no es un framework, es una **tecnología de compilación**; Quarkus y Spring Boot son **frameworks** que la **aprovechan** (entre otras estrategias de arranque rápido) para ofrecer aplicaciones nativas. No confundir «compilar a nativo» con «usar Quarkus»: Quarkus también puede ejecutarse en modo JVM tradicional sin compilación nativa.
 
-> **[EJEMPLO AYTO MADRID]** Un microservicio municipal que se despliega en Kubernetes y debe escalar automáticamente ante picos de tráfico (por ejemplo, la apertura del plazo de una convocatoria) se beneficia especialmente de la compilación nativa: cada nueva instancia debe estar lista para atender peticiones en milisegundos, no en segundos, algo que penaliza directamente la experiencia del ciudadano si se usa el modelo JVM tradicional bajo alta demanda súbita.
+> **[EJEMPLO DE APLICACIÓN EN EL AYTO]** Un microservicio municipal que se despliega en Kubernetes y debe escalar automáticamente ante picos de tráfico (por ejemplo, la apertura del plazo de una convocatoria) se beneficia especialmente de la compilación nativa: cada nueva instancia debe estar lista para atender peticiones en milisegundos, no en segundos, algo que penaliza directamente la experiencia del ciudadano si se usa el modelo JVM tradicional bajo alta demanda súbita.
 
 #### 2.1.6. Servidores de aplicaciones
 
@@ -231,9 +231,9 @@ Algunos servidores de aplicaciones relevantes en el ecosistema Jakarta EE:
 - **Payara Server**: derivado de GlassFish, con foco en soporte empresarial a largo plazo (*LTS*) y observabilidad.
 - **Apache TomEE**: añade el conjunto de especificaciones Jakarta EE sobre **Apache Tomcat**, que en sí mismo es solo un **contenedor de *servlets*** (implementa Jakarta Servlet y Jakarta Faces, pero no EJB completo ni JMS ni JTA distribuido de forma nativa) — de ahí que Tomcat «a secas» no sea, estrictamente, un servidor de aplicaciones Jakarta EE completo, sino un **contenedor web**.
 
-> **[DATO CLAVE EXAMEN]** Distinción de examen: **Apache Tomcat** es un **contenedor de servlets/JSF** (implementa una parte de la especificación, típicamente empaquetada como *Web Profile*), no un servidor de aplicaciones Jakarta EE **completo** — le faltan EJB, JMS y JTA distribuido nativos. **TomEE** añade esas piezas sobre Tomcat para ofrecer conformidad completa (o de perfil *Web Profile*/*Full Platform* según la distribución).
+> **[DATO CLAVE]** Distinción: **Apache Tomcat** es un **contenedor de servlets/JSF** (implementa una parte de la especificación, típicamente empaquetada como *Web Profile*), no un servidor de aplicaciones Jakarta EE **completo** — le faltan EJB, JMS y JTA distribuido nativos. **TomEE** añade esas piezas sobre Tomcat para ofrecer conformidad completa (o de perfil *Web Profile*/*Full Platform* según la distribución).
 
-> **[REFERENCIA CRUZADA]** La elección entre un servidor de aplicaciones Jakarta EE «pesado» y un *runtime* ligero orientado a microservicios (Quarkus, Spring Boot) es una decisión de **arquitectura de sistemas cliente/servidor y multicapas** que se trata en profundidad en el **Tema 22**; este Tema 21 se centra en los **elementos constitutivos** de la plataforma en sí, con independencia del estilo de despliegue elegido.
+> **[RELACIÓN CON OTROS TEMAS]** La elección entre un servidor de aplicaciones Jakarta EE «pesado» y un *runtime* ligero orientado a microservicios (Quarkus, Spring Boot) es una decisión de **arquitectura de sistemas cliente/servidor y multicapas** que se trata en profundidad en el **Tema 22**; este Tema 21 se centra en los **elementos constitutivos** de la plataforma en sí, con independencia del estilo de despliegue elegido.
 
 ### 2.2. Arquitectura de capas
 
@@ -243,11 +243,11 @@ Una aplicación Java EE se organiza, de forma canónica, en **capas** (*layers*)
 2. **Capa de negocio** (§2.4): contiene la **lógica de negocio** propiamente dicha — las reglas, cálculos y validaciones específicas del dominio (liquidar un tributo, validar un expediente).
 3. **Capa de persistencia y datos** (§2.5): gestiona el **acceso y almacenamiento** de los datos, típicamente en una base de datos relacional.
 
-> **[DATO CLAVE EXAMEN]** El principio de la arquitectura en capas es que cada capa **solo conoce** a la capa inmediatamente inferior, nunca a la superior ni salta capas: la presentación llama a la lógica de negocio, y la lógica de negocio llama a la persistencia — la persistencia **no** debe conocer nada de la presentación. Este aislamiento es lo que permite **sustituir** una capa (cambiar JSF por una *single-page application* que consuma la misma API REST) sin tocar las demás [FOWLER-EAA].
+> **[DATO CLAVE]** El principio de la arquitectura en capas es que cada capa **solo conoce** a la capa inmediatamente inferior, nunca a la superior ni salta capas: la presentación llama a la lógica de negocio, y la lógica de negocio llama a la persistencia — la persistencia **no** debe conocer nada de la presentación. Este aislamiento es lo que permite **sustituir** una capa (cambiar JSF por una *single-page application* que consuma la misma API REST) sin tocar las demás [FOWLER-EAA].
 
 Cada capa, además, se ejecuta típicamente dentro de un **contenedor** específico dentro del servidor de aplicaciones: el **contenedor web** (*servlets*, JSF, JAX-RS) gestiona la capa de presentación; el **contenedor EJB** gestiona la capa de negocio cuando esta se implementa con *Enterprise JavaBeans*. Ambos contenedores conviven dentro del mismo servidor de aplicaciones y comparten servicios transversales (§2.1) como la seguridad y las transacciones.
 
-> **[EJEMPLO AYTO MADRID]** En la aplicación de referencia, un ciudadano que solicita el estado de un expediente desde la sede electrónica atraviesa las tres capas en cadena: la petición HTTP llega a un recurso **REST** (presentación), que invoca un método de un **EJB** de negocio (`ExpedienteService.consultarEstado()`), que a su vez usa el `EntityManager` de **JPA** (persistencia) para leer la fila correspondiente de la tabla `EXPEDIENTE`. La respuesta recorre las capas en sentido inverso hasta llegar al ciudadano.
+> **[EJEMPLO DE APLICACIÓN EN EL AYTO]** En la aplicación de referencia, un ciudadano que solicita el estado de un expediente desde la sede electrónica atraviesa las tres capas en cadena: la petición HTTP llega a un recurso **REST** (presentación), que invoca un método de un **EJB** de negocio (`ExpedienteService.consultarEstado()`), que a su vez usa el `EntityManager` de **JPA** (persistencia) para leer la fila correspondiente de la tabla `EXPEDIENTE`. La respuesta recorre las capas en sentido inverso hasta llegar al ciudadano.
 
 ### 2.3. Capa de presentación/integración
 
@@ -266,7 +266,7 @@ public class ConsultaExpedienteServlet extends HttpServlet {
 }
 ```
 
-> **[DATO CLAVE EXAMEN]** Un *servlet* es **singleton por diseño** dentro del contenedor: la misma instancia atiende **todas** las peticiones concurrentes en hilos distintos. Esto implica que **no debe guardar estado mutable en variables de instancia** (un `int contador` compartido entre peticiones sin sincronizar es una fuente clásica de errores de concurrencia); el estado por petición se guarda en `HttpServletRequest`, y el estado por usuario, en `HttpSession`.
+> **[DATO CLAVE]** Un *servlet* es **singleton por diseño** dentro del contenedor: la misma instancia atiende **todas** las peticiones concurrentes en hilos distintos. Esto implica que **no debe guardar estado mutable en variables de instancia** (un `int contador` compartido entre peticiones sin sincronizar es una fuente clásica de errores de concurrencia); el estado por petición se guarda en `HttpServletRequest`, y el estado por usuario, en `HttpSession`.
 
 **JavaServer Faces**, hoy **Jakarta Faces (JSF)** [JAKARTA-FACES], se construye **sobre** el contenedor de *servlets* (un único *servlet* especial, `FacesServlet`, despacha todas las peticiones JSF) y añade un **modelo de componentes de interfaz de usuario** orientado a eventos, similar en filosofía a un *framework* de escritorio, pero renderizado a HTML: páginas **Facelets** (`.xhtml`) describen la vista con componentes reutilizables (`<h:inputText>`, `<h:commandButton>`), vinculados mediante **expresiones de lenguaje** (*Expression Language*, EL) a propiedades de un **managed bean** (normalmente, hoy, un CDI bean con ámbito `@ViewScoped` o `@RequestScoped`, §2.4.2).
 
@@ -279,7 +279,7 @@ public class ConsultaExpedienteServlet extends HttpServlet {
 
 JSF gestiona un **ciclo de vida de petición en seis fases** (restaurar vista, aplicar valores de la petición, procesar validaciones, actualizar valores del modelo, invocar la aplicación, renderizar la respuesta), frente al modelo mucho más simple de un *servlet* puro.
 
-> **[REFERENCIA CRUZADA]** El **Tema 23** (aplicaciones web, HTML/XML, lenguajes de *script*) desarrolla el **front-end** propiamente dicho (HTML, CSS, JavaScript) que JSF genera y renderiza en el navegador; este Tema 21 se centra en el modelo de componentes **del lado del servidor**. Muchas arquitecturas actuales sustituyen JSF por una API REST (§2.3.2) consumida por una *single-page application* construida con esas tecnologías del Tema 23.
+> **[RELACIÓN CON OTROS TEMAS]** El **Tema 23** (aplicaciones web, HTML/XML, lenguajes de *script*) desarrolla el **front-end** propiamente dicho (HTML, CSS, JavaScript) que JSF genera y renderiza en el navegador; este Tema 21 se centra en el modelo de componentes **del lado del servidor**. Muchas arquitecturas actuales sustituyen JSF por una API REST (§2.3.2) consumida por una *single-page application* construida con esas tecnologías del Tema 23.
 
 #### 2.3.2. Servicios web: REST (JAX-RS) y SOAP (JAX-WS)
 
@@ -333,9 +333,9 @@ public class TributoWebService {
 | Estado | Sin estado (*stateless*) por diseño | Puede llevar sesión/estado en cabeceras |
 | Casos de uso típicos | APIs públicas, integraciones ligeras, móvil/web | Integraciones corporativas formales, sistemas heredados, contratos regulados |
 
-> **[DATO CLAVE EXAMEN]** REST es un **estilo**, no un estándar cerrado: no exige JSON ni prohíbe XML, aunque en la práctica se asocia casi siempre a JSON por su ligereza. SOAP, al contrario, **exige** un sobre XML normalizado y habitualmente un contrato **WSDL** formal. La elección entre ambos no es «cuál es mejor» de forma absoluta, sino qué exige el **contexto de integración**: SOAP sigue siendo habitual en integraciones con sistemas corporativos heredados que exigen contrato formal y tipado estricto.
+> **[DATO CLAVE]** REST es un **estilo**, no un estándar cerrado: no exige JSON ni prohíbe XML, aunque en la práctica se asocia casi siempre a JSON por su ligereza. SOAP, al contrario, **exige** un sobre XML normalizado y habitualmente un contrato **WSDL** formal. La elección entre ambos no es «cuál es mejor» de forma absoluta, sino qué exige el **contexto de integración**: SOAP sigue siendo habitual en integraciones con sistemas corporativos heredados que exigen contrato formal y tipado estricto.
 
-> **[EJEMPLO AYTO MADRID]** Una integración con la **Agencia Tributaria estatal** para el cruce de datos de un tributo puede exigir SOAP, si el organismo expone un servicio heredado con contrato WSDL formal; la propia API pública de consulta de expedientes que usa la sede electrónica del Ayuntamiento, orientada a un front-end web moderno, es un candidato natural a REST.
+> **[EJEMPLO DE APLICACIÓN EN EL AYTO]** Una integración con la **Agencia Tributaria estatal** para el cruce de datos de un tributo puede exigir SOAP, si el organismo expone un servicio heredado con contrato WSDL formal; la propia API pública de consulta de expedientes que usa la sede electrónica del Ayuntamiento, orientada a un front-end web moderno, es un candidato natural a REST.
 
 #### 2.3.3. Gobierno de APIs: Swagger, WSDL y UDDI
 
@@ -345,9 +345,9 @@ Exponer un servicio no basta: hay que **describirlo formalmente** para que otros
 - **UDDI** (*Universal Description, Discovery and Integration*) [UDDI3] es una especificación OASIS para un **registro** centralizado donde publicar y **descubrir** servicios web SOAP, de forma análoga a unas «páginas amarillas» de servicios: un proveedor publica su WSDL en el registro UDDI, y un consumidor lo **busca y descubre** en tiempo de diseño (o, en teoría, en tiempo de ejecución). En la práctica, UDDI tuvo una adopción muy limitada fuera de grandes integraciones corporativas y hoy es una tecnología en gran medida **residual**, aunque sigue apareciendo en el temario y en sistemas heredados.
 - **Swagger**, hoy evolucionado a la especificación abierta **OpenAPI** [OPENAPI], cumple para **REST** el papel que WSDL cumple para SOAP: describe formalmente los recursos, operaciones, parámetros y esquemas de datos de una API REST en un documento (JSON/YAML), a partir del cual se pueden generar automáticamente documentación interactiva, clientes (*SDK*) y pruebas de contrato.
 
-> **[DATO CLAVE EXAMEN]** Correspondencia de examen: **WSDL es a SOAP lo que OpenAPI (Swagger) es a REST** — el contrato formal que describe el servicio. **UDDI** es el registro de **descubrimiento** de servicios SOAP, sin equivalente de uso extendido en el mundo REST (donde el descubrimiento suele resolverse con catálogos de API internos o *service mesh*, no con un estándar UDDI-like).
+> **[DATO CLAVE]** Correspondencia: **WSDL es a SOAP lo que OpenAPI (Swagger) es a REST** — el contrato formal que describe el servicio. **UDDI** es el registro de **descubrimiento** de servicios SOAP, sin equivalente de uso extendido en el mundo REST (donde el descubrimiento suele resolverse con catálogos de API internos o *service mesh*, no con un estándar UDDI-like).
 
-> **[REFERENCIA CRUZADA]** El **Tema 22** (arquitecturas de servicios web y protocolos asociados) profundiza en los protocolos de transporte y en los estilos arquitectónicos cliente/servidor y multicapa de forma general; este Tema 21 se centra en **cómo Java EE implementa** esos servicios (JAX-RS/JAX-WS) y en las herramientas de su gobierno documental (WSDL/UDDI/Swagger).
+> **[RELACIÓN CON OTROS TEMAS]** El **Tema 22** (arquitecturas de servicios web y protocolos asociados) profundiza en los protocolos de transporte y en los estilos arquitectónicos cliente/servidor y multicapa de forma general; este Tema 21 se centra en **cómo Java EE implementa** esos servicios (JAX-RS/JAX-WS) y en las herramientas de su gobierno documental (WSDL/UDDI/Swagger).
 
 ### 2.4. Capa de negocio
 
@@ -378,9 +378,9 @@ public class LiquidacionTributoService {
 }
 ```
 
-> **[DATO CLAVE EXAMEN]** Distinción de examen clásica: **Stateless** = sin conversación, instancias intercambiables de un *pool* (la opción por defecto y más habitual); **Stateful** = con conversación, una instancia dedicada por cliente; **Singleton** = una única instancia para toda la aplicación. Las **Entity Beans** son un modelo **obsoleto**, sustituido por JPA desde 2006 — mencionarlas como «la forma actual de persistencia» en Java EE es un error de examen frecuente.
+> **[DATO CLAVE]** Distinción: **Stateless** = sin conversación, instancias intercambiables de un *pool* (la opción por defecto y más habitual); **Stateful** = con conversación, una instancia dedicada por cliente; **Singleton** = una única instancia para toda la aplicación. Las **Entity Beans** son un modelo **obsoleto**, sustituido por JPA desde 2006 — mencionarlas como «la forma actual de persistencia» en Java EE es un error frecuente.
 
-> **[EJEMPLO AYTO MADRID]** El servicio `LiquidacionTributoService` que calcula y registra la liquidación de un tributo es un candidato natural a **Stateless Session Bean**: cada liquidación es una operación autocontenida, sin necesidad de recordar nada entre peticiones distintas. Un asistente web de varios pasos para dar de alta un expediente complejo, en cambio, encaja mejor como **Stateful**, para recordar los datos ya introducidos en pasos anteriores.
+> **[EJEMPLO DE APLICACIÓN EN EL AYTO]** El servicio `LiquidacionTributoService` que calcula y registra la liquidación de un tributo es un candidato natural a **Stateless Session Bean**: cada liquidación es una operación autocontenida, sin necesidad de recordar nada entre peticiones distintas. Un asistente web de varios pasos para dar de alta un expediente complejo, en cambio, encaja mejor como **Stateful**, para recordar los datos ya introducidos en pasos anteriores.
 
 #### 2.4.2. Contexts and Dependency Injection (CDI)
 
@@ -411,11 +411,11 @@ Cada *bean* CDI vive dentro de un **ámbito** (*scope*), que determina **cuánto
 | `@ConversationScoped` | Vive durante una **conversación** definida explícitamente por el desarrollador, útil para flujos multipaso en JSF |
 | `@Dependent` (ámbito por defecto) | La instancia inyectada **hereda el ciclo de vida** del bean en el que se inyecta, sin contexto propio independiente |
 
-> **[DATO CLAVE EXAMEN]** CDI resuelve por **tipo** (con posibilidad de desambiguar mediante *qualifiers* si hay varias implementaciones del mismo tipo); JNDI resuelve por **nombre**. Ambos son formas de inyección/localización de dependencias, pero con mecanismos de resolución distintos — es un matiz de examen frecuentemente confundido.
+> **[DATO CLAVE]** CDI resuelve por **tipo** (con posibilidad de desambiguar mediante *qualifiers* si hay varias implementaciones del mismo tipo); JNDI resuelve por **nombre**. Ambos son formas de inyección/localización de dependencias, pero con mecanismos de resolución distintos — es un matiz frecuentemente confundido.
 
 CDI incorpora también **eventos tipados** (`@Observes`), que permiten a un *bean* reaccionar a un suceso publicado por otro sin acoplamiento directo entre ambos (patrón *Observer* del Tema 20, aplicado de forma declarativa por el contenedor), e **interceptores** (`@Interceptor`), que permiten insertar lógica transversal (registro, medición de tiempos, reintentos) alrededor de la invocación de un método sin modificar su código.
 
-> **[REFERENCIA CRUZADA]** Los **patrones de diseño** (Singleton, Factory, Proxy, Observer) que el Tema 20 estudia de forma general son exactamente los que el contenedor CDI **aplica de forma automática y declarativa**: un bean `@ApplicationScoped` es, en esencia, un Singleton gestionado por el contenedor en lugar de codificado a mano; la inyección `@Inject` es una aplicación sistemática del patrón *Factory* / *Dependency Injection*.
+> **[RELACIÓN CON OTROS TEMAS]** Los **patrones de diseño** (Singleton, Factory, Proxy, Observer) que el Tema 20 estudia de forma general son exactamente los que el contenedor CDI **aplica de forma automática y declarativa**: un bean `@ApplicationScoped` es, en esencia, un Singleton gestionado por el contenedor en lugar de codificado a mano; la inyección `@Inject` es una aplicación sistemática del patrón *Factory* / *Dependency Injection*.
 
 #### 2.4.3. Jakarta Batch (JSR 352)
 
@@ -429,9 +429,9 @@ Un **job** se define declarativamente (XML) como una secuencia de **steps**, y c
 
 Este modelo de **procesamiento por fragmentos** (*chunk-oriented processing*) permite procesar millones de registros con un uso de memoria acotado (nunca se carga todo el conjunto de datos en memoria a la vez) y con **reinicio** (*restart*) desde el último fragmento confirmado si el proceso falla a mitad de ejecución, sin tener que repetir desde el principio.
 
-> **[DATO CLAVE EXAMEN]** El patrón *chunk* de Jakarta Batch confirma la transacción **por fragmento**, no al final de todo el job: si el proceso falla en el fragmento 500 de 1.000, los 499 fragmentos anteriores ya están confirmados de forma permanente, y un **reinicio** puede retomar el trabajo desde ahí en lugar de reprocesar todo desde cero — una diferencia clave de eficiencia frente a procesar todo en una única transacción gigante.
+> **[DATO CLAVE]** El patrón *chunk* de Jakarta Batch confirma la transacción **por fragmento**, no al final de todo el job: si el proceso falla en el fragmento 500 de 1.000, los 499 fragmentos anteriores ya están confirmados de forma permanente, y un **reinicio** puede retomar el trabajo desde ahí en lugar de reprocesar todo desde cero — una diferencia clave de eficiencia frente a procesar todo en una única transacción gigante.
 
-> **[EJEMPLO AYTO MADRID]** El recálculo anual de bonificaciones sobre todos los tributos liquidados del ejercicio (el mismo caso de negocio que en el Tema 19 se resolvía con un procedimiento almacenado y cursor) puede implementarse alternativamente como un **job Jakarta Batch**: un `ItemReader` que lee los tributos candidatos, un `ItemProcessor` que calcula la bonificación, y un `ItemWriter` que actualiza los registros por fragmentos de, por ejemplo, 500 en 500.
+> **[EJEMPLO DE APLICACIÓN EN EL AYTO]** El recálculo anual de bonificaciones sobre todos los tributos liquidados del ejercicio (el mismo caso de negocio que en el Tema 19 se resolvía con un procedimiento almacenado y cursor) puede implementarse alternativamente como un **job Jakarta Batch**: un `ItemReader` que lee los tributos candidatos, un `ItemProcessor` que calcula la bonificación, y un `ItemWriter` que actualiza los registros por fragmentos de, por ejemplo, 500 en 500.
 
 ### 2.5. Capa de persistencia y datos
 
@@ -458,9 +458,9 @@ public void notificarCambioEstado(Long idExpediente) {
 
 Un **Message-Driven Bean** (§2.4.1) es la forma habitual de **consumir** mensajes JMS dentro de la capa de negocio: el contenedor invoca automáticamente su método `onMessage()` cada vez que llega un mensaje nuevo a la cola o tema al que está suscrito, sin que el desarrollador tenga que programar un bucle de sondeo (*polling*).
 
-> **[DATO CLAVE EXAMEN]** Cola (`Queue`, punto a punto) = **un solo** consumidor recibe cada mensaje; Tema (`Topic`, *publish/subscribe*) = **todos** los suscriptores activos reciben cada mensaje. Es una de las distinciones más preguntadas del bloque de persistencia/integración.
+> **[DATO CLAVE]** Cola (`Queue`, punto a punto) = **un solo** consumidor recibe cada mensaje; Tema (`Topic`, *publish/subscribe*) = **todos** los suscriptores activos reciben cada mensaje.
 
-> **[EJEMPLO AYTO MADRID]** Cuando un expediente cambia de estado a `RESUELTO`, la aplicación puede publicar un mensaje en un **tema** JMS `ExpedienteResuelto`: el sistema de notificaciones al ciudadano y el sistema de estadísticas internas del Área de Gobierno pueden **suscribirse ambos** al mismo tema de forma independiente, sin que la lógica de negocio que resuelve el expediente necesite conocer ni acoplarse a ninguno de los dos sistemas consumidores.
+> **[EJEMPLO DE APLICACIÓN EN EL AYTO]** Cuando un expediente cambia de estado a `RESUELTO`, la aplicación puede publicar un mensaje en un **tema** JMS `ExpedienteResuelto`: el sistema de notificaciones al ciudadano y el sistema de estadísticas internas del Área de Gobierno pueden **suscribirse ambos** al mismo tema de forma independiente, sin que la lógica de negocio que resuelve el expediente necesite conocer ni acoplarse a ninguno de los dos sistemas consumidores.
 
 #### 2.5.2. Conectividad con bases de datos (JDBC)
 
@@ -484,9 +484,9 @@ public double consultarImporte(String dni) throws SQLException {
 }
 ```
 
-> **[DATO CLAVE EXAMEN]** El uso de `PreparedStatement` con parámetros (`?`) en lugar de concatenar la consulta como texto es la defensa estándar frente a **inyección SQL** (§1.5 del Tema 19, SQL dinámico) — un `PreparedStatement` separa el **código SQL** (fijo, precompilado) de los **datos** (parámetros), de modo que un valor de entrada malicioso nunca puede alterar la estructura de la sentencia.
+> **[DATO CLAVE]** El uso de `PreparedStatement` con parámetros (`?`) en lugar de concatenar la consulta como texto es la defensa estándar frente a **inyección SQL** (§1.5 del Tema 19, SQL dinámico) — un `PreparedStatement` separa el **código SQL** (fijo, precompilado) de los **datos** (parámetros), de modo que un valor de entrada malicioso nunca puede alterar la estructura de la sentencia.
 
-> **[REFERENCIA CRUZADA]** JDBC es la capa de conectividad **de bajo nivel**; sobre ella se construyen tanto los **procedimientos almacenados y consultas SQL directas** del Tema 19 como el **ORM** de JPA (§2.5.4), que internamente sigue generando y ejecutando SQL a través de JDBC — JPA no sustituye a JDBC, se apoya en él.
+> **[RELACIÓN CON OTROS TEMAS]** JDBC es la capa de conectividad **de bajo nivel**; sobre ella se construyen tanto los **procedimientos almacenados y consultas SQL directas** del Tema 19 como el **ORM** de JPA (§2.5.4), que internamente sigue generando y ejecutando SQL a través de JDBC — JPA no sustituye a JDBC, se apoya en él.
 
 #### 2.5.3. Gestión de transacciones (JTA)
 
@@ -519,9 +519,9 @@ public class LiquidacionTributoService {
 | `NEVER` | Exige que **no** exista ninguna transacción activa; lanza excepción si la hay |
 | `SUPPORTS` | Se une a la transacción del llamador si existe; si no, se ejecuta sin transacción |
 
-> **[DATO CLAVE EXAMEN]** `REQUIRED` es el atributo **por defecto** y el más usado: garantiza que el método siempre se ejecuta dentro de una transacción, reutilizando la existente si la hay. `REQUIRES_NEW` es clave cuando se necesita que una parte de la lógica (por ejemplo, un registro de auditoría) se confirme **con independencia** de si el resto de la operación acaba haciendo `rollback`.
+> **[DATO CLAVE]** `REQUIRED` es el atributo **por defecto** y el más usado: garantiza que el método siempre se ejecuta dentro de una transacción, reutilizando la existente si la hay. `REQUIRES_NEW` es clave cuando se necesita que una parte de la lógica (por ejemplo, un registro de auditoría) se confirme **con independencia** de si el resto de la operación acaba haciendo `rollback`.
 
-> **[REFERENCIA CRUZADA]** El **Tema 19** desarrolla **TCL** (`COMMIT`/`ROLLBACK`/`SAVEPOINT`) como el mecanismo transaccional **dentro de un único SGBD**; JTA extiende esa misma garantía ACID a escenarios donde intervienen **varios** recursos transaccionales distintos, coordinados desde el servidor de aplicaciones en lugar de desde el propio motor de base de datos.
+> **[RELACIÓN CON OTROS TEMAS]** El **Tema 19** desarrolla **TCL** (`COMMIT`/`ROLLBACK`/`SAVEPOINT`) como el mecanismo transaccional **dentro de un único SGBD**; JTA extiende esa misma garantía ACID a escenarios donde intervienen **varios** recursos transaccionales distintos, coordinados desde el servidor de aplicaciones en lugar de desde el propio motor de base de datos.
 
 #### 2.5.4. Java Persistence API (JPA)
 
@@ -569,9 +569,9 @@ List<Tributo> altos = em.createQuery(
     .getResultList();
 ```
 
-> **[DATO CLAVE EXAMEN]** JPA es una **especificación**; **Hibernate**, **EclipseLink** (implementación de referencia) o **OpenJPA** son **implementaciones** concretas del contrato JPA — la misma relación especificación/implementación de §1.1, aplicada a la persistencia. JPQL opera sobre el **modelo de entidades** (clases y atributos Java), a diferencia de SQL, que opera sobre el **modelo relacional físico** (tablas y columnas) — es la distinción de examen más preguntada de este epígrafe.
+> **[DATO CLAVE]** JPA es una **especificación**; **Hibernate**, **EclipseLink** (implementación de referencia) o **OpenJPA** son **implementaciones** concretas del contrato JPA — la misma relación especificación/implementación de §1.1, aplicada a la persistencia. JPQL opera sobre el **modelo de entidades** (clases y atributos Java), a diferencia de SQL, que opera sobre el **modelo relacional físico** (tablas y columnas).
 
-> **[REFERENCIA CRUZADA]** El **diseño lógico relacional y la normalización** del **Tema 17**, y el **SQL estándar** del **Tema 19**, son el fundamento sobre el que JPA construye su capa de abstracción: JPA no elimina la necesidad de entender el modelo relacional subyacente, solo evita escribir el SQL repetitivo a mano para las operaciones CRUD básicas — el SQL sigue ahí, generado por el proveedor JPA.
+> **[RELACIÓN CON OTROS TEMAS]** El **diseño lógico relacional y la normalización** del **Tema 17**, y el **SQL estándar** del **Tema 19**, son el fundamento sobre el que JPA construye su capa de abstracción: JPA no elimina la necesidad de entender el modelo relacional subyacente, solo evita escribir el SQL repetitivo a mano para las operaciones CRUD básicas — el SQL sigue ahí, generado por el proveedor JPA.
 
 #### 2.5.5. JCache (JSR 107)
 
@@ -587,9 +587,9 @@ public Distrito buscarDistrito(int idDistrito) {
 
 El uso de una caché introduce siempre el mismo compromiso fundamental: mejora el **rendimiento** al evitar recálculos o accesos repetidos, a cambio del riesgo de servir datos **obsoletos** (*stale*) si la fuente original cambia y la caché no se **invalida** o **actualiza** a tiempo. Las políticas de expiración (*time-to-live*) y de invalidación explícita son, por ello, tan importantes como la propia caché.
 
-> **[DATO CLAVE EXAMEN]** JCache es una **especificación transversal**, aplicable tanto dentro como fuera de Jakarta EE (cualquier aplicación Java SE puede usarla); no debe confundirse con el **contexto de persistencia** de JPA (§2.5.4), que es una forma de caché **de primer nivel** implícita y limitada al ámbito de una transacción, mientras que JCache es una caché **explícita**, de propósito general y con control fino sobre su ciclo de vida.
+> **[DATO CLAVE]** JCache es una **especificación transversal**, aplicable tanto dentro como fuera de Jakarta EE (cualquier aplicación Java SE puede usarla); no debe confundirse con el **contexto de persistencia** de JPA (§2.5.4), que es una forma de caché **de primer nivel** implícita y limitada al ámbito de una transacción, mientras que JCache es una caché **explícita**, de propósito general y con control fino sobre su ciclo de vida.
 
-> **[EJEMPLO AYTO MADRID]** El catálogo de `DISTRITO` (Tema 19) cambia con muy poca frecuencia; cachearlo con JCache evita repetir la misma consulta de solo lectura en cada petición que necesita mostrar el nombre de un distrito, a costa de tener que invalidar explícitamente la caché el día (excepcional) en que se modifique el catálogo de distritos.
+> **[EJEMPLO DE APLICACIÓN EN EL AYTO]** El catálogo de `DISTRITO` (Tema 19) cambia con muy poca frecuencia; cachearlo con JCache evita repetir la misma consulta de solo lectura en cada petición que necesita mostrar el nombre de un distrito, a costa de tener que invalidar explícitamente la caché el día (excepcional) en que se modifique el catálogo de distritos.
 
 ---
 
@@ -601,9 +601,9 @@ Una herramienta **APM** (*Application Performance Manager/Monitoring*) instrumen
 
 A diferencia de las pruebas de carga (§3.3), que se ejecutan en un entorno controlado **antes** del despliegue, un APM opera de forma **continua** sobre el sistema real, permitiendo detectar **degradaciones progresivas** de rendimiento (una consulta JPA que empieza a tardar más a medida que crece una tabla, un *pool* de conexiones JDBC que se agota bajo cierta carga) que una prueba puntual no siempre revela.
 
-> **[DATO CLAVE EXAMEN]** La diferencia clave APM frente a pruebas de carga: el **APM monitoriza producción en continuo** (observabilidad), mientras que las **pruebas de carga se ejecutan antes del despliegue** en un entorno controlado, de forma puntual. Son complementarios, no sustitutos: un buen APM en producción puede detectar un problema que las pruebas de carga, con un patrón de tráfico distinto al real, no llegaron a simular.
+> **[DATO CLAVE]** La diferencia clave APM frente a pruebas de carga: el **APM monitoriza producción en continuo** (observabilidad), mientras que las **pruebas de carga se ejecutan antes del despliegue** en un entorno controlado, de forma puntual. Son complementarios, no sustitutos: un buen APM en producción puede detectar un problema que las pruebas de carga, con un patrón de tráfico distinto al real, no llegaron a simular.
 
-> **[REFERENCIA CRUZADA]** La observabilidad de producción conecta con los requisitos de **disponibilidad** del **Tema 25** (confidencialidad y disponibilidad en puestos de usuario final) y con el marco general de calidad del software de **ISO/IEC 25010** [ISO25010], que incluye la **eficiencia de desempeño** como característica de calidad medible.
+> **[RELACIÓN CON OTROS TEMAS]** La observabilidad de producción conecta con los requisitos de **disponibilidad** del **Tema 25** (confidencialidad y disponibilidad en puestos de usuario final) y con el marco general de calidad del software de **ISO/IEC 25010:2023** [ISO25010], que incluye la **eficiencia de desempeño** como característica de calidad medible.
 
 ### 3.2. Pruebas unitarias: JUnit, Mockito
 
@@ -631,7 +631,7 @@ void tramitarInvocaLiquidacion() {
 }
 ```
 
-> **[DATO CLAVE EXAMEN]** JUnit **ejecuta y organiza** las pruebas (aserciones, ciclo de vida `@BeforeEach`/`@AfterEach`, agrupación); Mockito **aísla** la unidad bajo prueba de sus dependencias reales mediante *mocks*. No son alternativos, son **complementarios**: la combinación JUnit + Mockito es el patrón estándar de pruebas unitarias en el ecosistema Java EE/Jakarta EE.
+> **[DATO CLAVE]** JUnit **ejecuta y organiza** las pruebas (aserciones, ciclo de vida `@BeforeEach`/`@AfterEach`, agrupación); Mockito **aísla** la unidad bajo prueba de sus dependencias reales mediante *mocks*. No son alternativos, son **complementarios**: la combinación JUnit + Mockito es el patrón estándar de pruebas unitarias en el ecosistema Java EE/Jakarta EE.
 
 ### 3.3. Pruebas de carga: JMeter
 
@@ -643,9 +643,9 @@ Se distinguen varios tipos de prueba según el objetivo:
 - **Prueba de estrés** (*stress testing*): comportamiento **más allá** de la capacidad prevista, buscando el punto de ruptura del sistema y cómo se degrada (¿falla con gracia, devolviendo errores controlados, o colapsa por completo?).
 - **Prueba de resistencia** (*soak/endurance testing*): carga moderada sostenida durante un **periodo largo**, para detectar problemas que solo aparecen con el tiempo (fugas de memoria, agotamiento progresivo de un *pool* de conexiones JDBC que nunca libera correctamente sus recursos).
 
-> **[DATO CLAVE EXAMEN]** JMeter opera a nivel de **protocolo** (peticiones HTTP/JDBC/JMS reales), no simula un navegador completo con renderizado — es una herramienta de **carga en el servidor**, no de pruebas funcionales de interfaz de usuario. La distinción **carga / estrés / resistencia** es una de las más preguntadas de este epígrafe.
+> **[DATO CLAVE]** JMeter opera a nivel de **protocolo** (peticiones HTTP/JDBC/JMS reales), no simula un navegador completo con renderizado — es una herramienta de **carga en el servidor**, no de pruebas funcionales de interfaz de usuario.
 
-> **[EJEMPLO AYTO MADRID]** Antes de abrir el plazo de una convocatoria pública que se sabe que generará un pico de tráfico simultáneo, una prueba de carga con JMeter que simule varios miles de ciudadanos consultando y tramitando expedientes a la vez permite detectar, con antelación, si el *pool* de conexiones JDBC o la capacidad de instancias Stateless del EJB (§2.4.1) son suficientes para ese volumen.
+> **[EJEMPLO DE APLICACIÓN EN EL AYTO]** Antes de abrir el plazo de una convocatoria pública que se sabe que generará un pico de tráfico simultáneo, una prueba de carga con JMeter que simule varios miles de ciudadanos consultando y tramitando expedientes a la vez permite detectar, con antelación, si el *pool* de conexiones JDBC o la capacidad de instancias Stateless del EJB (§2.4.1) son suficientes para ese volumen.
 
 ### 3.4. Frameworks de desarrollo
 
@@ -665,7 +665,7 @@ Spring se organiza en **módulos** especializados, cada uno cubriendo una respon
 
 **Spring Boot**, construido sobre Spring Framework, añade **configuración automática** (*auto-configuration*) y un servidor embebido, eliminando la necesidad de desplegar sobre un servidor de aplicaciones externo: la aplicación se empaqueta como un **JAR ejecutable autocontenido**, con el servidor web incluido dentro — un modelo de despliegue muy distinto al WAR/EAR tradicional de Jakarta EE (§2.1.4).
 
-> **[DATO CLAVE EXAMEN]** Spring **no es una implementación de Jakarta EE**: es un *framework* alternativo e independiente, aunque históricamente ha **influido** en la evolución de la plataforma (CDI nace, en parte, como respuesta estandarizada a las ideas que Spring popularizó) y hoy **interopera** con partes de ella (Spring puede usar JPA como su proveedor de persistencia, por ejemplo). No confundir «usa JPA» con «es Jakarta EE»: Spring puede consumir especificaciones Jakarta EE concretas sin implementar la plataforma completa.
+> **[DATO CLAVE]** Spring **no es una implementación de Jakarta EE**: es un *framework* alternativo e independiente, aunque históricamente ha **influido** en la evolución de la plataforma (CDI nace, en parte, como respuesta estandarizada a las ideas que Spring popularizó) y hoy **interopera** con partes de ella (Spring puede usar JPA como su proveedor de persistencia, por ejemplo). No confundir «usa JPA» con «es Jakarta EE»: Spring puede consumir especificaciones Jakarta EE concretas sin implementar la plataforma completa.
 
 #### 3.4.2. Quarkus
 
@@ -673,7 +673,7 @@ Spring se organiza en **módulos** especializados, cada uno cubriendo una respon
 
 Su eslogan («*Supersonic Subatomic Java*») resume su propuesta de valor: tiempos de arranque y consumo de memoria órdenes de magnitud menores que un servidor de aplicaciones Jakarta EE tradicional, logrados moviendo al **momento de construcción** (procesamiento de anotaciones, generación de metadatos de inyección) trabajo que tradicionalmente se hacía al arrancar la aplicación.
 
-> **[DATO CLAVE EXAMEN]** Diferencia de examen entre Spring y Quarkus: **Spring es un framework alternativo** a Jakarta EE (con su propio modelo de inyección de dependencias, histórico e independiente); **Quarkus construye sobre estándares Jakarta EE/MicroProfile** (CDI, JAX-RS, JPA) con un motor de arranque optimizado — ambos compiten hoy en el espacio de microservicios cloud-native, pero parten de una relación distinta con la plataforma estándar.
+> **[DATO CLAVE]** Diferencia entre Spring y Quarkus: **Spring es un framework alternativo** a Jakarta EE (con su propio modelo de inyección de dependencias, histórico e independiente); **Quarkus construye sobre estándares Jakarta EE/MicroProfile** (CDI, JAX-RS, JPA) con un motor de arranque optimizado — ambos compiten hoy en el espacio de microservicios cloud-native, pero parten de una relación distinta con la plataforma estándar.
 
 ---
 
@@ -689,7 +689,7 @@ La plataforma sigue evolucionando para responder a un contexto de despliegue muy
 - **Migración continua desde sistemas heredados**: buena parte del trabajo real de un arquitecto Java EE hoy no es «empezar de cero», sino **modernizar** aplicaciones J2EE/Java EE antiguas (EJB 2.x con interfaces *remote/home*, `javax.*`) hacia Jakarta EE actual, arquitecturas de microservicios, o directamente hacia un *runtime* cloud-native — un proceso incremental, no un «big bang», dado el riesgo y coste de reescribir sistemas críticos de una sola vez.
 - **Convergencia de ecosistemas**: la frontera entre «aplicación Jakarta EE tradicional», «aplicación Spring Boot» y «aplicación Quarkus» es cada vez más difusa en la práctica: los tres modelos comparten especificaciones (JPA/Hibernate, en gran medida CDI/JAX-RS) y compiten sobre todo en su **modelo de arranque y despliegue**, no en los fundamentos arquitectónicos de capas y componentes que este tema desarrolla.
 
-> **[DATO CLAVE EXAMEN]** Estas tendencias **amplían el contexto de despliegue** de la plataforma, pero no sustituyen sus fundamentos: el modelo de contenedor con inversión de control (§1.1), la arquitectura de capas (§2.2) y los componentes constitutivos (§2.3-2.5) siguen siendo la base conceptual sobre la que se construyen tanto un servidor de aplicaciones Jakarta EE tradicional como un microservicio Quarkus desplegado en Kubernetes.
+> **[DATO CLAVE]** Estas tendencias **amplían el contexto de despliegue** de la plataforma, pero no sustituyen sus fundamentos: el modelo de contenedor con inversión de control (§1.1), la arquitectura de capas (§2.2) y los componentes constitutivos (§2.3-2.5) siguen siendo la base conceptual sobre la que se construyen tanto un servidor de aplicaciones Jakarta EE tradicional como un microservicio Quarkus desplegado en Kubernetes.
 
 ---
 
